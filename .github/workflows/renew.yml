@@ -1,0 +1,9 @@
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # Runs every 4 hours
+jobs:
+  renew:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -X POST -H "Content-Type: application/json" -d '{"password":"${{ secrets.E5_WEB_APP_PASSWORD }}", "refresh_token": "${{ secrets.E5_REFRESH_TOKEN }}"}' "https://e5.thecaduceus.eu.org/call"
